@@ -157,6 +157,7 @@
 
 @media screen and (max-width: 800px) {
     .aboutme__image {
+        margin: 0 0 0 20px;
         width: 255px;
         height: 307px;
     }
@@ -164,6 +165,7 @@
 
 @media screen and (max-width: 450px) {
     .aboutme__image {
+        margin: 0;
         width: 100%;
         height: 354px;
     }
