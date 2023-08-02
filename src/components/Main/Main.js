@@ -10,16 +10,14 @@ import Footer from "../Footer/Footer";
 function Main() {
     return (
         <>
-            <div className="main">
-                <main>
-                    <Promo />
-                    <NavTab />
-                    <AboutProject />
-                    <Techs />
-                    <AboutMe />
-                    <Portfolio />
-                </main>
-            </div>
+            <main className="main">
+                <Promo />
+                <NavTab />
+                <AboutProject />
+                <Techs />
+                <AboutMe />
+                <Portfolio />
+            </main>
             <Footer />
         </>
     )

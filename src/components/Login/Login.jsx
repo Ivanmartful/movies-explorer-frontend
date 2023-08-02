@@ -5,7 +5,7 @@ import FormInput from "../FormInput/FormInput";
 
 function Login() {
     return (
-        <div className="login">
+        <main className="login">
             <div className="login__container">
                 <Link to="/">
                     <img className="login__logo" src={logo} alt="logo" />
@@ -30,7 +30,7 @@ function Login() {
                     </div>
                 </form>
             </div>
-        </div>
+        </main>
     )
 }
 

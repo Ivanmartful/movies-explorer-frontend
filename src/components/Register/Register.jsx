@@ -5,7 +5,7 @@ import FormInput from "../FormInput/FormInput";
 
 function Register() {
     return (
-        <div className="register">
+        <main className="register">
             <div className="register__container">
                 <Link to="/">
                     <img className="register__logo" src={logo} alt="logo" />
@@ -38,7 +38,7 @@ function Register() {
                     </div>
                 </form>
             </div>
-        </div>
+        </main>
     )
 }
 

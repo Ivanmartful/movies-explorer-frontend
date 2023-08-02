@@ -147,6 +147,7 @@
 }
 
 .aboutme__image {
+    margin: 0 0 0 50px;
     width: 270px;
     height: 327px;
     border-radius: 10px;

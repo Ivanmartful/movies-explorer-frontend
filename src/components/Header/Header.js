@@ -22,7 +22,7 @@ function Header() {
         <>
             <Routes>
                 <Route exact path="/" element={
-                    <div className={location.pathname === '/' ? "header__container-main" : "header__container"}>
+                    <header className={location.pathname === '/' ? "header__container-main" : "header__container"}>
                         <Link to="/">
                             <img className="header__logo hover-effect" src={logo} alt="logo" />
                         </Link>
@@ -32,11 +32,11 @@ function Header() {
                                 <Link to="/signin" className="header__button-main header__button-colored hover-effect">Войти</Link>
                             </div>
                         </div>
-                    </div>
+                    </header>
                 } />
                 <Route path="/movies" element={
                     <>
-                        <div className={location.pathname === '/' ? "header__container-main" : "header__container"}>
+                        <header className={location.pathname === '/' ? "header__container-main" : "header__container"}>
                             <Link to="/">
                                 <img className="header__logo hover-effect" src={logo} alt="logo" />
                             </Link>
@@ -53,7 +53,7 @@ function Header() {
                                 </div>
                             </div>
                             <button className="header__button-mobile hover-effect" onClick={handleMenuClick}></button>
-                        </div>
+                        </header>
 
                         <div className={`header__popup ${isOpen ? `header__popup_opened` : ""}`}>
                             <div className="header__popup-container">
@@ -75,7 +75,7 @@ function Header() {
                 } />
                 <Route exact path="/saved-movies" element={
                     <>
-                        <div className={location.pathname === '/' ? "header__container-main" : "header__container"}>
+                        <header className={location.pathname === '/' ? "header__container-main" : "header__container"}>
                             <Link to="/">
                                 <img className="header__logo hover-effect" src={logo} alt="logo" />
                             </Link>
@@ -92,7 +92,7 @@ function Header() {
                                 </div>
                             </div>
                             <button className="header__button-mobile hover-effect" onClick={handleMenuClick}></button>
-                        </div>
+                        </header>
 
                         <div className={`header__popup ${isOpen ? `header__popup_opened` : ""}`}>
                             <div className="header__popup-container">
@@ -114,7 +114,7 @@ function Header() {
                 } />
                 <Route path="/profile" element={
                     <>
-                    <div className={location.pathname === '/' ? "header__container-main" : "header__container"}>
+                    <header className={location.pathname === '/' ? "header__container-main" : "header__container"}>
                         <Link to="/">
                             <img className="header__logo hover-effect" src={logo} alt="logo" />
                         </Link>
@@ -131,7 +131,7 @@ function Header() {
                             </div>
                         </div>
                         <button className="header__button-mobile hover-effect" onClick={handleMenuClick}></button>
-                    </div>
+                    </header>
 
                     <div className={`header__popup ${isOpen ? `header__popup_opened` : ""}`}>
                             <div className="header__popup-container">

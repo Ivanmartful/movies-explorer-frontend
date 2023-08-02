@@ -3,12 +3,12 @@ import "./PortfolioLink.css";
 
 function PortfolioLink({ text, link }) {
     return (
-        <div className="portfoliolink">
+        <a className="portfoliolink" href={link} target="_blank">
             <div className="portfoliolink__text">{text}</div>
-            <a className="portfoliolink__icon hover-effect" href={link} target="_blank">
+            <p className="portfoliolink__icon hover-effect">
             ↗
-            </a>
-        </div>
+            </p>
+        </a>
     )
 }
 

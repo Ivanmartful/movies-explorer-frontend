@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Profile() {
     return (
         <>
-            <div className="profile">
+            <main className="profile">
                 <h1 className="profile__title">Привет, Иван!</h1>
                 <div className="profile__container">
                     <div className="profile__info-container profile__info-container_underlined">
@@ -20,7 +20,7 @@ function Profile() {
                         <Link className="profile__link profile__link_colored hover-effect" to="/">Выйти из аккаунта</Link>
                     </div>
                 </div>
-            </div>
+            </main>
         </>
     )
 }
