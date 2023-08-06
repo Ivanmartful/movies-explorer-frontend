@@ -1,0 +1,117 @@
+.profile {
+    padding: 74px 0 55px;
+    margin: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (max-width: 800px) {
+    .profile {
+        padding: 236px 0 269px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile {
+        padding: 70px 30px 40px;
+    }
+}
+
+.profile__title {
+    margin: 0 auto 0;
+    padding: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.profile__container {
+    margin: 108px 0 0;
+    padding: 0;
+    width: 410px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 800px) {
+    .profile__container {
+        margin: 81px 0 0;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile__container {
+        margin: 65px 0 0;
+        max-width: 260px;
+    }
+}
+
+.profile__info-container {
+    margin: 0;
+    padding: 16px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile__info-container_underlined {
+    border-bottom: 1px #424242 solid;
+}
+
+.profile__text {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.profile__links {
+    margin: 206px 0 0;
+    padding: 0;
+    width: 410px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 800px) {
+    .profile__links {
+        margin: 196px 0 0;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile__links {
+        margin: 366px auto 0;
+        max-width: 200px;
+    }
+}
+
+.profile__link {
+    margin: 0 0 16px;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 450px) {
+    .profile__link {
+        font-size: 12px;
+    }
+}
+
+.profile__link_colored {
+    color: #EE3465;
+}
