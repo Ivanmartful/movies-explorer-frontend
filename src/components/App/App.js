@@ -77,13 +77,13 @@ function App() {
     mainApi
       .registerUser(name, email, password)
       .then((data) => {
-        if (data) {
+        if (data._id) {
           setInfoToolTip({
             isOpen: true,
             isSuccess: true,
             text: "Добро пожаловать!"
           });
-          navigate('/signin', { replace: true });
+          handleLogin(data.email, password);
         }
       })
       .catch((err) => {
