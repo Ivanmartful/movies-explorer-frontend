@@ -70,7 +70,6 @@ function Movies({ movies, savedMovies, onLike, onDelete, isLoading, setIsLoading
     setIsLoading(true);
     setTimeout(() => {
       setFilteredMoviesHandler(movies, query);
-      console.log(7)
       setIsLoading(false);
     }, 100)
   }
