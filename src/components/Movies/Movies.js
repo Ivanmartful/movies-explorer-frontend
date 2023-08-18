@@ -1,96 +1,140 @@
 import "./Movies.css";
+import { useState, useEffect } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Preloader from "../Preloader/Preloader";
 import card1 from "../../images/card1.png";
-import card2 from "../../images/card2.png";
-import card3 from "../../images/card3.png";
 import Footer from "../Footer/Footer";
 
-function Movies() {
-    return (
-        <>
-            <main className="movies">
-                <SearchForm />
-                <MoviesCardList>
-                    <MoviesCard
-                        title="33 слова о дизайне"
-                        duration="1ч 47м"
-                        image={card1}
-                        isSaved={true}
-                    />
-                    <MoviesCard
-                        title="Киноальманах «100 лет дизайна»"
-                        duration="1ч 3м"
-                        image={card2}
-                        isSaved={false}
-                    />
-                    <MoviesCard
-                        title="Баския: Взрыв реальности"
-                        duration="1ч 21м"
-                        image={card3}
-                        isSaved={true}
-                    />
-                    <MoviesCard
-                        title="33 слова о дизайне"
-                        duration="1ч 47м"
-                        image={card1}
-                        isSaved={true}
-                    />
-                    <MoviesCard
-                        title="Киноальманах «100 лет дизайна»"
-                        duration="1ч 3м"
-                        image={card2}
-                        isSaved={false}
-                    />
-                    <MoviesCard
-                        title="Баския: Взрыв реальности"
-                        duration="1ч 21м"
-                        image={card3}
-                        isSaved={true}
-                    />
-                    <MoviesCard
-                        title="33 слова о дизайне"
-                        duration="1ч 47м"
-                        image={card1}
-                        isSaved={true}
-                    />
-                    <MoviesCard
-                        title="Киноальманах «100 лет дизайна»"
-                        duration="1ч 3м"
-                        image={card2}
-                        isSaved={false}
-                    />
-                    {/*<MoviesCard
-                        title="Баския: Взрыв реальности"
-                        duration="1ч 21м"
-                        image={card3}
-                        isSaved={true}
-                    />
-                    <MoviesCard
-                        title="33 слова о дизайне"
-                        duration="1ч 47м"
-                        image={card1}
-                        isSaved={true}
-                    />
-                    <MoviesCard
-                        title="Киноальманах «100 лет дизайна»"
-                        duration="1ч 3м"
-                        image={card2}
-                        isSaved={false}
-                    />
-                    <MoviesCard
-                        title="Баския: Взрыв реальности"
-                        duration="1ч 21м"
-                        image={card3}
-                        isSaved={true}
-    />*/}
-                </MoviesCardList>
-                <button className="movies__button hover-effect">Ещё</button>
-            </main>
-            <Footer />
-        </>
-    )
+import { filterQueryMovies, filterShortMovies, isMovieSaved, moviesEmount, addMoviesEmount } from "../../utils/utils"
+
+function Movies({ movies, savedMovies, onLike, onDelete, isLoading, setIsLoading }) {
+
+  const [width, setWidth] = useState(window.innerWidth)
+
+  const [queryMovies, setQueryMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [shortMovies, setShortMovies] = useState(false);
+  const [query, setQuery] = useState('');
+  const [movieCounter, setMovieCounter] = useState(moviesEmount(width))
+  const movieStep = addMoviesEmount(width)
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.addEventListener('resize', setWidth(window.innerWidth));
+    }, 100);
+  });
+
+  useEffect(() => {
+
+    const visibleMovies = JSON.parse(localStorage.getItem('visibleMovies'));
+    const query = localStorage.getItem('query')
+    const checkbox = JSON.parse(localStorage.getItem('checkbox'))
+
+    if (query) {
+      setQuery(query)
+    }
+    if (visibleMovies) {
+      setQueryMovies(visibleMovies)
+    }
+    if (visibleMovies && checkbox) {
+      setFilteredMovies(filterShortMovies(visibleMovies))
+      setShortMovies(true)
+    } else if (visibleMovies && !checkbox) {
+      setFilteredMovies(visibleMovies)
+      setShortMovies(false)
+    }
+  }, []);
+
+  function showMoreHandler() {
+    setMovieCounter(movieCounter + movieStep)
+  };
+
+  function setFilteredMoviesHandler(movies, query) {
+    const moviesList = filterQueryMovies(movies, query);
+    setQueryMovies(moviesList);
+    if (moviesList.length === 0) {
+      console.log('nothing found');
+    }
+    if (shortMovies) {
+      const filteredMovieList = filterShortMovies(moviesList);
+      setFilteredMovies(filteredMovieList);
+    } else {
+      setFilteredMovies(moviesList);
+    }
+    localStorage.setItem('visibleMovies', JSON.stringify(moviesList));
+    localStorage.setItem('query', query);
+  }
+
+  function onQueryMovies(query) {
+    setIsLoading(true);
+    setTimeout(() => {
+      setFilteredMoviesHandler(movies, query);
+      console.log(7)
+      setIsLoading(false);
+    }, 100)
+  }
+
+  function handleShortMovies() {
+    setIsLoading(true);
+    setTimeout(() => {
+      localStorage.setItem('checkbox', !shortMovies);
+      setShortMovies(!shortMovies);
+      if (!shortMovies) {
+        const filteredShortList = filterShortMovies(filteredMovies);
+        setFilteredMovies(filteredShortList);
+        if (filteredShortList.length === 0) {
+          console.log('nothing found');
+        }
+      } else {
+        setFilteredMovies(queryMovies);
+      }
+      setIsLoading(false);
+    }, 100)
+  };
+
+  return (
+    <>
+      <main className="movies">
+        <SearchForm
+          onQueryMovies={onQueryMovies}
+          shortMovies={shortMovies}
+          handleShortMovies={handleShortMovies}
+          query={query}
+          setQuery={setQuery}
+        />
+        {isLoading ? <Preloader /> : (
+          <MoviesCardList>
+            {filteredMovies.slice(0, movieCounter).map((movie, index) => (
+              <MoviesCard
+                movie={movie}
+                key={movie.id.toString() || index}
+                title={movie.nameRU}
+                duration={movie.duration}
+                image={
+                  movie?.image?.url
+                    ? `https://api.nomoreparties.co/${movie.image.url}`
+                    : require(card1)
+                }
+                trailerLink={movie.trailerLink}
+                onLike={onLike}
+                onDelete={onDelete}
+                movieSaved={isMovieSaved(savedMovies, movie)}
+              />
+            ))}
+          </MoviesCardList>)}
+          {
+            !isLoading && filteredMovies.length === 0 ? <p className="movies__nothing-found-text">Ничего не найдено</p> : ""
+          }
+        {filteredMovies.length > movieCounter && !isLoading ?
+          <button className="movies__button hover-effect" onClick={showMoreHandler}>Ещё</button>
+          : ""
+        }
+      </main>
+      <Footer />
+    </>
+  )
 }
 
 export default Movies;

@@ -1,12 +1,16 @@
 import "./Checkbox.css";
 
-function Checkbox() {
+function Checkbox({ handleShortMovies, shortMovies }) {
 
-    return(
+    return (
         <>
-            <label class="checkbox-ios">
-                <input type="checkbox"/>
-                <span class="checkbox-ios-switch"></span>
+            <label className="checkbox-ios">
+                <input
+                    type="checkbox"
+                    onChange={handleShortMovies}
+                    checked={shortMovies ? true : false}
+                />
+                <span className="checkbox-ios-switch"></span>
             </label>
         </>
     )

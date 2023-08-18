@@ -1,9 +1,23 @@
 import "./Login.css";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, Navigate } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import FormInput from "../FormInput/FormInput";
+import { useFormWithValidation } from '../../hooks/useFormValidation';
 
-function Login() {
+function Login({ onLogin, isLoggedIn }) {
+
+    const { values, handleChange, errors, isValid } = useFormWithValidation();
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        onLogin(values.email, values.password);
+    }
+
+    if (isLoggedIn) {
+        return <Navigate to="/movies"/>;
+    }
+
     return (
         <main className="login">
             <div className="login__container">
@@ -11,19 +25,25 @@ function Login() {
                     <img className="login__logo" src={logo} alt="logo" />
                 </Link>
                 <h1 className="login__title">Рады видеть!</h1>
-                <form className="login__form">
-                    <FormInput 
-                    text="E-mail"
-                    type="email"
-                    id="email"
-                    placeholder="pochta@yandex.ru"
+                <form className="login__form" onSubmit={handleSubmit}>
+                    <FormInput
+                        text="E-mail"
+                        type="email"
+                        id="email"
+                        error={errors.email}
+                    value={values.email || ""}
+                    onChange={handleChange}
+                        placeholder="pochta@yandex.ru"
                     />
-                    <FormInput 
-                    text="Пароль"
-                    type="password"
-                    id="password"
+                    <FormInput
+                        text="Пароль"
+                        type="password"
+                        id="password"
+                        error={errors.password}
+                    value={values.password || ""}
+                    onChange={handleChange}
                     />
-                    <button className="login__button hover-effect" type="submit">Войти</button>
+                    <button className={`login__button ${!isValid ? "" : "hover-effect"}`} type="submit" disabled={!isValid}>Войти</button>
                     <div className="login__bottom-container">
                         <span className="login__text">Ещё не зарегистрированы?</span>
                         <Link className="login__text login__link hover-effect" to="/signup">Регистрация</Link>
