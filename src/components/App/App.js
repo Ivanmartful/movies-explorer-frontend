@@ -24,13 +24,15 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [infoToolTip, setInfoToolTip] = useState({
     isOpen: false,
     isSuccess: false,
     text: ""
   });
+
+  console.log(isLoggedIn);
 
   const navigate = useNavigate();
 
@@ -47,8 +49,10 @@ function App() {
         })
         .catch((err) => console.log(err))
         .finally(() => {
-          setLoad(false);
+          setLoad(true);
         })
+    } else {
+      setLoad(true);
     }
   }, []);
 
@@ -58,7 +62,6 @@ function App() {
         .getMovies()
         .then((movies) => {
           setMovies(movies);
-          setLoad(false);
         })
         .catch((err) => console.log(err));
 
@@ -202,7 +205,7 @@ function App() {
 
   return (
     <>
-      {load ? (<Preloader />) : (
+      {!load ? (<Preloader />) : (
         <CurrentUserContext.Provider value={currentUser}>
           <Header isLoggedIn={isLoggedIn} />
           <Routes>
