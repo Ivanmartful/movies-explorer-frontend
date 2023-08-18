@@ -24,7 +24,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [infoToolTip, setInfoToolTip] = useState({
     isOpen: false,
@@ -123,7 +123,7 @@ function App() {
   function handleSignOut() {
     localStorage.clear()
     setIsLoggedIn(false);
-    navigate('/signin', { replace: true });
+    navigate('/', { replace: true });
     setCurrentUser("");
   }
 

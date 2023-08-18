@@ -4,7 +4,6 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
-import card1 from "../../images/card1.png";
 import Footer from "../Footer/Footer";
 
 import { filterQueryMovies, filterShortMovies, isMovieSaved, moviesEmount, addMoviesEmount } from "../../utils/utils"
@@ -112,11 +111,7 @@ function Movies({ movies, savedMovies, onLike, onDelete, isLoading, setIsLoading
                 key={movie.id.toString() || index}
                 title={movie.nameRU}
                 duration={movie.duration}
-                image={
-                  movie?.image?.url
-                    ? `https://api.nomoreparties.co/${movie.image.url}`
-                    : require(card1)
-                }
+                image={`https://api.nomoreparties.co/${movie.image.url}`}
                 trailerLink={movie.trailerLink}
                 onLike={onLike}
                 onDelete={onDelete}
