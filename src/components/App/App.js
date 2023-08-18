@@ -24,7 +24,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [infoToolTip, setInfoToolTip] = useState({
     isOpen: false,
@@ -36,6 +36,7 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
+    setLoad(true);
     if (jwt) {
       mainApi
         .checkToken()
@@ -54,10 +55,12 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
+      setLoad(true);
       moviesApi
         .getMovies()
         .then((movies) => {
           setMovies(movies);
+          setLoad(false);
         })
         .catch((err) => console.log(err));
 
