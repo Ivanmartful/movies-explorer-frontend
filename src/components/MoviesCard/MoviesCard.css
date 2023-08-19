@@ -20,9 +20,24 @@
 }
 
 .movies-card__image {
+    position: relative;
+    border-radius: 6px 6px 0 0;
+    height: 203px;
     width: 100%;
     object-position: center;
-    object-fit: contain;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 800px) {
+    .movies-card__image {
+        height: 190px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .movies-card__image {
+        height: 168px;
+    }
 }
 
 .movies-card__container {

@@ -8,3 +8,11 @@
 ## Ссылка на макет
 
 https://disk.yandex.ru/d/w6LsqUNeLHQbLw
+
+## Публичный адрес
+
+https://domainname.ivan.nomoreparties.co
+
+## Ссылка на пуллреквест
+
+https://github.com/Ivanmartful/movies-explorer-frontend/pull/3

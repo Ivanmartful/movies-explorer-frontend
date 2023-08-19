@@ -7,7 +7,7 @@
 }
 
 .form-input__label {
-    margin: 19px 0 0;
+    margin: 9px 0 0;
     padding: 0;
     color: #8B8B8B;
     font-family: Inter;
@@ -33,17 +33,13 @@
     background-color: transparent;
 }
 
-.form-input__input:last-of-type {
-    color: #EE3465;
-}
-
 .form-input__input:focus {
     color: #FFF;
     border-bottom: 1px #4285F4 solid;
 }
 
 .form-input__input::placeholder {
-    color: #FFF;
+    color: #424242;
 }
 
 .form-input__error {
@@ -55,4 +51,5 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    height: 10px;
 }

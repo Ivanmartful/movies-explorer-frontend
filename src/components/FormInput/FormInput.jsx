@@ -1,6 +1,6 @@
 import "./FormInput.css";
 
-function FormInput({ text, type, id, placeholder, value, error}) {
+function FormInput({ text, type, id, placeholder, value, onChange, error}) {
     return (
         <div className="form-input">
             <label className="form-input__label">{text}</label>
@@ -13,6 +13,9 @@ function FormInput({ text, type, id, placeholder, value, error}) {
             minLength={2}
             maxLength={30}
             value={value}
+            onChange={onChange}
+            autoComplete="off"
+            required
             />
             <span className="form-input__error">{error}</span>
         </div>

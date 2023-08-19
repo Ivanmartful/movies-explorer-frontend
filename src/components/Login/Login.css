@@ -47,7 +47,7 @@
 
 .login__form {
     position: relative;
-    margin: 21px 0 0;
+    margin: 33px 0 0;
 }
 
 @media screen and (max-width: 450px) {
@@ -59,7 +59,7 @@
 
 .login__button {
     padding: 0;
-    margin: 216px 0 0;
+    margin: 204px 0 0;
     width: 100%;
     border-radius: 3px;
     border: none;
@@ -75,6 +75,12 @@
     font-weight: 500;
     line-height: normal;
     cursor: pointer;
+}
+
+.login__button:disabled {
+    background-color: transparent;
+    outline: 1px solid #8B8B8B;
+    color: #8B8B8B;
 }
 
 @media screen and (max-width: 450px) {

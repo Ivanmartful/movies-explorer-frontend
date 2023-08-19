@@ -1,41 +1,93 @@
 import "./SavedMovies.css";
+import { useState, useEffect } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import card1 from "../../images/card1.png";
-import card2 from "../../images/card2.png";
-import card3 from "../../images/card3.png";
 import Footer from "../Footer/Footer";
+import Preloader from "../Preloader/Preloader";
 
-function SavedMovies() {
-    return (
-        <>
-            <main className="saved-movies">
-                <SearchForm />
-                <MoviesCardList>
-                    <MoviesCard
-                        title="33 слова о дизайне"
-                        duration="1ч 47м"
-                        image={card1}
-                        isSaved={true}
-                    />
-                    <MoviesCard
-                        title="Киноальманах «100 лет дизайна»"
-                        duration="1ч 3м"
-                        image={card2}
-                        isSaved={false}
-                    />
-                    <MoviesCard
-                        title="Баския: Взрыв реальности"
-                        duration="1ч 21м"
-                        image={card3}
-                        isSaved={true}
-                    />
-                </MoviesCardList>
-            </main>
-            <Footer />
-        </>
-    )
+import { filterQueryMovies, filterShortMovies, isMovieSaved } from "../../utils/utils"
+
+function SavedMovies({ savedMovies, onDelete, isLoading, setIsLoading }) {
+
+	const [filteredMovies, setFilteredMovies] = useState([]);
+	const [queryMovies, setQueryMovies] = useState([]);
+	const [query, setQuery] = useState('');
+	const [shortMovies, setShortMovies] = useState(false);
+
+	useEffect(() => {
+		setFilteredMovies(savedMovies);
+	}, [savedMovies]);
+
+	function setFilteredMoviesHandler(movies, query) {
+		const moviesList = filterQueryMovies(movies, query);
+		setQueryMovies(moviesList);
+		if (moviesList.length === 0) {
+		}
+		if (shortMovies) {
+			setFilteredMovies(filterShortMovies(moviesList));
+		} else {
+			setFilteredMovies(moviesList);
+		}
+	};
+
+	function onQueryMovies(query) {
+		setIsLoading(true);
+		setTimeout(() => {
+			setFilteredMoviesHandler(savedMovies, query);
+			setIsLoading(false);
+		}, 100)
+	};
+
+	function handleShortMovies() {
+		setIsLoading(true);
+		setTimeout(() => {
+			if (!shortMovies) {
+				const filteredShortList = filterShortMovies(filteredMovies);
+				setFilteredMovies(filteredShortList);
+				if (filteredShortList.length === 0) {
+				}
+			} else {
+				setFilteredMovies(queryMovies.length !== 0 ? queryMovies : savedMovies);
+			}
+			setShortMovies(!shortMovies);
+			setIsLoading(false);
+		}, 100)
+	};
+
+	return (
+		<>
+			<main className="saved-movies">
+				<SearchForm
+					onQueryMovies={onQueryMovies}
+					shortMovies={shortMovies}
+					handleShortMovies={handleShortMovies}
+					query={query}
+					setQuery={setQuery}
+				/>
+				{isLoading ? <Preloader /> : (
+					<MoviesCardList>
+						{filteredMovies.map((movie, index) => (
+							<MoviesCard
+								movie={movie}
+								key={movie._id.toString() || index}
+								title={movie.nameRU}
+								duration={movie.duration}
+								image={movie.image}
+								trailerLink={movie.trailerLink}
+								onDelete={onDelete}
+								movieSaved={isMovieSaved(savedMovies, movie)}
+							/>
+						))}
+					</MoviesCardList>
+				)}
+				{
+					!isLoading && filteredMovies.length === 0 ? <p className="saved-movies__nothing-found-text">Ничего не найдено</p> : ""
+				}
+			</main>
+			<Footer />
+		</>
+	)
 }
 
 export default SavedMovies;
