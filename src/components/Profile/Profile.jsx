@@ -13,7 +13,7 @@ function Profile({ onSignOut, onUpdateUser, currentUser, isLoading }) {
             name: currentUser.name,
             email: currentUser.email
         })
-    }, [currentUser.email, currentUser.name, setValues])
+    }, [currentUser, setValues])
 
     function isDataNew() {
         return (

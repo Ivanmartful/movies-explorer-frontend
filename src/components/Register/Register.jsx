@@ -5,7 +5,7 @@ import logo from "../../images/logo.svg";
 import FormInput from "../FormInput/FormInput";
 import { useFormWithValidation } from '../../hooks/useFormValidation';
 
-function Register({ onRegister, isLoggedIn }) {
+function Register({ onRegister, isLoggedIn, isLoading }) {
 
     const { values, handleChange, errors, isValid } = useFormWithValidation();
 
@@ -15,51 +15,53 @@ function Register({ onRegister, isLoggedIn }) {
     }
 
     if (isLoggedIn) {
-        return <Navigate to="/movies"/>;
+        return <Navigate to="/movies" />;
     }
 
     return (
-        <main className="register">
-            <div className="register__container">
-                <Link to="/">
-                    <img className="register__logo" src={logo} alt="logo" />
-                </Link>
-                <h1 className="register__title">Добро пожаловать!</h1>
-                <form className="register__form" onSubmit={handleSubmit}>
-                    <FormInput 
-                    text="Имя"
-                    type="text"
-                    id="name"
-                    placeholder="Имя"
-                    error={errors.name}
-                    value={values.name || ""}
-                    onChange={handleChange}
-                    />
-                    <FormInput 
-                    text="E-mail"
-                    type="email"
-                    id="email"
-                    placeholder="pochta@yandex.ru"
-                    error={errors.email}
-                    value={values.email || ""}
-                    onChange={handleChange}
-                    />
-                    <FormInput 
-                    text="Пароль"
-                    type="password"
-                    id="password"
-                    error={errors.password}
-                    value={values.password || ""}
-                    onChange={handleChange}
-                    />
-                    <button className={`register__button ${!isValid ? "" : "hover-effect"}`} type="submit" disabled={!isValid}>Зарегистрироваться</button>
-                    <div className="register__bottom-container">
-                        <span className="register__text">Уже зарегистрированы?</span>
-                        <Link className="register__text register__link hover-effect" to="/signin">Войти</Link>
+        <>
+                <main className="register">
+                    <div className="register__container">
+                        <Link to="/">
+                            <img className="register__logo" src={logo} alt="logo" />
+                        </Link>
+                        <h1 className="register__title">Добро пожаловать!</h1>
+                        <form className="register__form" onSubmit={handleSubmit}>
+                            <FormInput
+                                text="Имя"
+                                type="text"
+                                id="name"
+                                placeholder="Имя"
+                                error={errors.name}
+                                value={values.name || ""}
+                                onChange={handleChange}
+                            />
+                            <FormInput
+                                text="E-mail"
+                                type="email"
+                                id="email"
+                                placeholder="pochta@yandex.ru"
+                                error={errors.email}
+                                value={values.email || ""}
+                                onChange={handleChange}
+                            />
+                            <FormInput
+                                text="Пароль"
+                                type="password"
+                                id="password"
+                                error={errors.password}
+                                value={values.password || ""}
+                                onChange={handleChange}
+                            />
+                            <button className={`register__button ${!isValid ? "" : "hover-effect"}`} type="submit" disabled={!isValid || isLoading}>Зарегистрироваться</button>
+                            <div className="register__bottom-container">
+                                <span className="register__text">Уже зарегистрированы?</span>
+                                <Link className="register__text register__link hover-effect" to="/signin">Войти</Link>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
-        </main>
+                </main>
+        </>
     )
 }
 
